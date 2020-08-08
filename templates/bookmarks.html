@@ -1,0 +1,182 @@
+{% extends 'layout.html' %}
+{% block head %}
+{% endblock %}
+{% block body %}
+<nav class="navbar " role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://bulma.io">
+        <img src="../static/images/shiken logo.png" width="128" height="28" />
+      </a>
+    </div>
+  
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-end ">
+        <a href="{{url_for('home')}}" class="navbar-item">Home</a>
+        
+        <a href="{{url_for('leaderboard')}}" class="navbar-item">Leader Board</a>
+        <a href="{{url_for('progress')}}" class="navbar-item">Progress</a>
+        <a href="{{url_for('practice',page_num=1)}}"  class="navbar-item">Practice</a>
+        <a href="{{url_for('bookmarks')}}" class="navbar-item">Bookmarks</a>
+        <div class="navbar-item">
+          <a href="{{ url_for('logout')}}"
+            ><button class="button is-success ">Logout</button></a
+          >
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <br>
+  <br>
+  <h1 class="title has-text-centered">Bookmark Section</h1>
+  <br>
+  <br>
+  <div class="container">
+    <div class="columns is-centered">
+        <div class="column is-half">
+            {% if bookmarks=="No Bookmarks"%}
+            <h1 class="Title has-text-centered">No Bookmarks</h1>
+
+            {% else %}
+
+            {% for qn in bookmarks %}
+
+            <h1 class="title is-size-4" id="one">{{loop.index}}. {{qn.qn}}</h1>
+          
+            <div class="control">
+              <label class="radio">
+                <input type="radio" name="{{loop.index}}" value="{{qn.op1}}"  onclick="showAnswer({{loop.index}});"  />
+                {{qn.op1}} <span><img  class="img" src="" alt="" style="width: 20px; height: 20px; "></span>
+              </label>
+              <br />
+              <label class="radio">
+                <input type="radio" name="{{loop.index}}" value="{{qn.op2}}" onclick="showAnswer({{loop.index}});"  />
+                {{qn.op2}} <span><img class="img" src="" alt="" style="width: 20px; height: 20px;"></span>
+              </label>
+              <br />
+              <label class="radio">
+                <input type="radio" name="{{loop.index}}" value="{{qn.op3}}"  onclick="showAnswer({{loop.index}});" />
+                {{qn.op3}} <span><img class="img" src="" alt="" style="width: 20px; height: 20px;"></span>
+              </label>
+              <br />
+              <label class="radio">
+                <input type="radio" name="{{loop.index}}" value="{{qn.op4}}"  onclick="showAnswer({{loop.index}});"  />
+                {{qn.op4}} <span><img class="img" src="" alt="" style="width: 20px; height: 20px;"></span>
+              </label>
+              <input type="hidden" name="{{loop.index}}" value="{{qn.crtans}}" />
+              <br>
+              <br>
+              <p class="title is-size-4 displaycrtans"  style="display: none;">Correct answer: <br> {{qn.crtans}}</p>
+              <div id="{{loop.index}}" class="box" style="background-color: hsl(141, 71%, 48%); color: white; display: none;">
+                <p class="title is-size-4" style="color: white;">Explanation:</p>
+                {{qn.explanation}}
+                <br>
+                <br>
+              
+                
+              </div>
+          
+              
+          
+          
+          
+          
+              <br />
+            </div>
+          
+          
+          
+          
+            
+          
+          {% endfor %}
+
+            {% endif %}
+
+           
+  
+        </div>
+    </div>
+  </div>
+
+  
+ 
+
+<script>
+
+
+function showAnswer(x)
+{
+  var ans;
+  var crtans=document.getElementsByClassName("displaycrtans")
+  var img =document.getElementsByClassName("img");
+  var temp=document.getElementsByName(x);
+  if (temp[0].checked) {
+    ans = temp[0].getAttribute("value");
+    if(temp[4].getAttribute("value")==ans)
+      {
+        img[x*4-4].setAttribute("src","../static/images/tick.png")
+      }
+      else
+      {
+        {img[x*4-4].setAttribute("src","../static/images/cross.png")}
+      }
+
+  } else if (temp[1].checked) {
+    ans = temp[1].getAttribute("value");
+    if(temp[4].getAttribute("value")==ans)
+      {img[x*4-4+1].setAttribute("src","../static/images/tick.png")}
+      else
+      {
+        {img[x*4-4+1].setAttribute("src","../static/images/cross.png")}
+      }
+  } else if (temp[2].checked) {
+    ans = temp[2].getAttribute("value");
+    if(temp[4].getAttribute("value")==ans)
+      {img[x*4-4+2].setAttribute("src","../static/images/tick.png")}
+      else
+      {
+        {img[x*4-4+2].setAttribute("src","../static/images/cross.png")}
+      }
+  } else if (temp[3].checked) {
+    ans = temp[3].getAttribute("value");
+    if(temp[4].getAttribute("value")==ans)
+      {img[x*4-4+3].setAttribute("src","../static/images/tick.png")}
+      else
+      {
+        {img[x*4-4+3].setAttribute("src","../static/images/cross.png")}
+      }
+  }
+
+
+  
+
+  
+
+  var explanation=document.getElementById(x);
+  explanation.style.display="block";
+
+  crtans[x-1].style.display="block";
+
+  temp[0].disabled=true;
+  temp[1].disabled=true;
+  temp[2].disabled=true;
+  temp[3].disabled=true;
+
+
+
+
+
+
+
+
+
+}
+
+
+  </script>
+ 
+
+
+
+{% endblock %}

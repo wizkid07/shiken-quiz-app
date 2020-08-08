@@ -1,0 +1,118 @@
+{% extends 'layout.html'%} {% block head %}
+<title>History</title>
+
+
+
+{% endblock%} {% block body %}
+
+<!-- NAVBAR -->
+
+<nav class="navbar " role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <img src="../static/images/shiken logo.png" width="128" height="28" />
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-end ">
+      <a href="{{url_for('home')}}" class="navbar-item">Home</a>
+      
+      <a href="{{url_for('leaderboard')}}" class="navbar-item">Leader Board</a>
+      <a href="{{url_for('progress')}}" class="navbar-item">Progress</a>
+      <div class="navbar-item">
+        <a href="{{ url_for('logout')}}"
+          ><button class="button is-success ">Logout</button></a
+        >
+      </div>
+    </div>
+  </div>
+</nav>
+<br>
+<br>
+
+<div class="container">
+  <div class="columns">
+    
+    <div class="column is-offset-10">
+      <span class="title is-size-4">Sort By</span>
+      <form name="form" id="sorting" action="{{url_for('gamehistory',topic=topic)}}" method="POST">
+        
+        <input class="button is-success" type="submit" value="score" name="sort">
+        <input class="button is-success" type="submit" value="time" name="sort">
+      </form>
+     
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<section class = "section">
+    <div class = "container">
+
+        <div class="columns is-centered">
+            <div class="column" >
+                <h1 class="title  has-text-centered">{{topic}} quiz history</h1>
+                <br>
+                
+                <table class = "table is-fullwidth is-bordered ">
+                   <thead>
+                      <tr>
+                         <th>ID</th>
+                         
+                         <th>Score</th>
+                         <th>Time</th>
+                         <th>Date</th>
+                         
+                         
+                      </tr>
+                   </thead>
+                  
+                   <tbody>
+                       {% for his in history %}
+                      <tr>
+                         <td>{{loop.index}}</td>
+                         
+                         <td class="score" id="{{loop.index}}">{{his.score}}</td>
+                         
+                         {% set minute = his.time // 60 %}
+                         {% set second = his.time - minute*60 %}
+                         <td>{{minute}}:{{second}}</td>
+                         {% set date = his.date|string %}
+                         <td>{{date[0:10]}}</td>
+         
+                      </tr>
+
+                      {% endfor %}
+                      
+                   </tbody>
+                </table>
+
+            </div>
+        </div>
+      
+       
+    </div>
+ </section>
+
+ 
+
+ <script>
+    
+    function submitform()
+    {
+      $("#sorting").submit();
+    }
+    
+
+
+     
+
+   
+
+ </script>
+
+{% endblock %}

@@ -1,0 +1,481 @@
+{% extends 'layout.html' %} {% block head %}
+<title>Strings</title>
+
+<style>
+  .hidden {
+    display: none;
+  }
+
+  .sticky {
+    position: fixed;
+  }
+</style>
+
+{% endblock %} {% block body%}
+
+<!-- ##################################################################################### -->
+
+<!-- NAVBAR -->
+<nav class="navbar " role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <img src="../static/images/shiken logo.png" width="128" height="28" />
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-end ">
+      <a href="{{url_for('home')}}" class="navbar-item">Home</a>
+      
+      <a href="{{url_for('leaderboard')}}" class="navbar-item">Leader Board</a>
+      <a href="{{url_for('progress')}}" class="navbar-item">Progress</a>
+      <div class="navbar-item">
+        <a href="{{ url_for('logout')}}"
+          ><button class="button is-success ">Logout</button></a
+        >
+      </div>
+    </div>
+  </div>
+</nav>
+<br />
+
+<!-- ##################################################################################### -->
+
+<!-- Quiz module -->
+<div class="columns is-centered">
+  <div class="column is-half">
+    <div class="container">
+      <div class="notification is-success" id="resultBox">
+      
+        <p class="title has-text-centered" id="score">Start the Quiz!</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<div class="columns">
+  <div class="column is-offset-10">
+    <h1 class="title is-size-2 sticky" id="timer"></h1>
+  </div>
+</div>
+
+<div class="columns is-centered">
+  <div class="column is-half">
+    <div class="container">
+      <br />
+
+      {% for qn in question %}
+      <br />
+      <h1 class="title is-size-4" id="one">{{loop.index}}. {{qn.qn}}</h1>
+
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="{{loop.index}}" value="{{qn.op1}}" />
+          {{qn.op1}} <span><img class="img" src="" alt="" style="width: 20px; height: 20px; "></span>
+        </label>
+        <br />
+        <label class="radio">
+          <input type="radio" name="{{loop.index}}" value="{{qn.op2}}" />
+          {{qn.op2}} <span><img class="img" src="" alt="" style="width: 20px; height: 20px;"></span>
+        </label>
+        <br />
+        <label class="radio">
+          <input type="radio" name="{{loop.index}}" value="{{qn.op3}}" />
+          {{qn.op3}} <span><img class="img" src="" alt="" style="width: 20px; height: 20px;"></span>
+        </label>
+        <br />
+        <label class="radio">
+          <input type="radio" name="{{loop.index}}" value="{{qn.op4}}" />
+          {{qn.op4}} <span><img class="img" src="" alt="" style="width: 20px; height: 20px;"></span>
+        </label>
+        <input type="hidden" name="{{loop.index}}" value="{{qn.crtans}}" />
+        <br>
+        <br>
+        <p class="title is-size-4 displaycrtans" style="display: none;">Correct answer: <br> {{qn.crtans}}</p>
+        <div class="box hidden" id={{loop.index}} style="background-color: hsl(141, 71%, 48%); color: white; " ><p class="title is-size-4"
+          style="color: white;">Explanation:</p>
+              {{qn.explanation}}</div>
+         
+          
+        
+
+        <br />
+      </div>
+
+      {% endfor %}
+      <br />
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-offset-5">
+
+      <form   id="submitform" action="" method="post">
+        <input type="hidden" name="score" id="tempscore" value="">
+        <input type="hidden" name="score" id="temptime" value="">
+        <input  class="button is-success" type="submit" value="submit" name="submit" onclick="endQuiz();">
+        <!-- <button class="button" onclick="endQuiz()">End quiz!</button> -->
+      </form>
+      
+      <a href="#" id="backbuttonlink"
+        ><button  class="button is-success hidden" id="backbutton">
+          Go back
+        </button></a
+      >
+    </div>
+  </div>
+</div>
+
+
+
+
+
+ 
+
+<script>
+
+  //Before quiz
+  alert("You have 10 minutes to complete the quiz \n End Quiz when finished")
+
+   //global time variable
+   seconds = 600;
+
+    // Timer function on startup
+    
+    var x = setInterval(function() {
+    var min = Math.floor(seconds / 60);
+    var sec = seconds - min * 60;
+    var timer = document.getElementById("timer");
+    timer.innerHTML = min + " : " + sec;
+    seconds = seconds - 1;
+
+    //if timer runs out
+    if (seconds <= 0) {
+      clearInterval(x);
+      var timesup = document.getElementById("timer");
+      timesup.innerText = "Time's Up!";
+      timesup.classList.remove("sticky");
+      endQuiz(true);
+      // var form=document.getElementById("submitform");
+      // form.click();
+      //submitdata()
+       $("#submitform").submit();
+       $("#submitform").hide();
+
+      
+
+      
+      
+
+    }
+  }, 1000);
+
+
+  // to end the quiz
+  function endQuiz(x) {
+
+    //get number of unanswered questions
+    if(x==null)
+    {
+      var unanswered=countUnanswered();
+
+      //display confirmation msg
+      if(unanswered>0)
+      {
+        var result =confirm("You haven't answered "+unanswered+" questions \n Do you still want to submit?")
+
+        if(result==false)
+        {
+         console.log("hi")
+         return;
+
+        } 
+      }
+      
+    }
+    
+  
+
+    
+    var i;
+    //0.Get score
+    var score =evaluvateScore();
+    console.log(score)
+
+    //1.Stop the timer
+    stopTime();
+    
+  
+    //3.Show back button
+    var backbutton = document.getElementById("backbutton");
+    backbutton.classList.remove("hidden");
+    
+    //4.set url for back button
+    var link = document.getElementById("backbuttonlink");
+    var url="{{url_for('home')}}"
+    link.setAttribute("href", url);
+    
+
+    
+    //5.Reveal explanation for each question
+    for (i = 1; i<=10; i++) {
+      var explanation = document.getElementById(i);
+      explanation.classList.remove("hidden");
+    }
+
+    //6.display score
+    displayResult(score);
+    
+    //7.Show Icon
+    showIcon();
+
+    //values to submit
+    var tempscore=document.getElementById("tempscore");
+    tempscore.setAttribute("value",score)
+
+    var temptime=document.getElementById("temptime");
+    temptime.setAttribute("value",seconds)
+    
+    
+    //hide submit button
+    //submitdata();
+    
+
+    $("#submitform").hide();
+
+    revealAnswers();
+
+    
+
+
+
+    
+  }
+    
+    
+   
+
+  //To calculate score
+  
+  function evaluvateScore() {
+
+    var score=0;
+    var checkedoptions = new Array();
+    var answers = new Array();
+    var ans;
+    
+
+    for (i = 1; i<=10; i++) {
+      var temp = document.getElementsByName(i);
+      if (temp[0].checked) {
+        ans = temp[0].getAttribute("value");
+      } else if (temp[1].checked) {
+        ans = temp[1].getAttribute("value");
+      } else if (temp[2].checked) {
+        ans = temp[2].getAttribute("value");
+      } else if (temp[3].checked) {
+        ans = temp[3].getAttribute("value");
+      }
+
+      checkedoptions.push(ans);
+      answers.push(temp[4].getAttribute("value"));
+    }
+
+    for (i = 0; i < checkedoptions.length; i++) {
+      if (checkedoptions[i] == answers[i]) {
+        score++;
+      }
+    }
+
+    
+
+    return score;
+
+    
+  }
+
+
+  // To stop the timer
+
+  function stopTime() {
+    
+    clearInterval(x);
+    var timesup = document.getElementById("timer");
+    timesup.innerText = "Time's Up!";
+    timesup.classList.remove("sticky");
+
+  }
+
+  //display result on top
+
+  function displayResult(score) {
+    var resultBox=document.getElementById("resultBox");
+    resultBox.classList.add("is-success")
+    var displayScore = document.getElementById("score");
+    displayScore.innerText = "Your total score: " + score;
+    
+
+  }
+
+
+
+
+  // to display icons
+  // note : works , dont touch it
+
+  function showIcon() {
+
+    var i=1;
+    var j=0; // to iterate through each set of icon
+    var img =document.getElementsByClassName("img");
+
+    for(i=1;i<=10;i++)
+    {
+      var temp =document.getElementsByName(i);
+    if (temp[0].checked) {
+        ans = temp[0].getAttribute("value");
+        if (ans==temp[4].getAttribute("value"))
+        {
+            
+            img[0+j].setAttribute("src","../static/images/tick.png")
+        }
+        else
+        {
+          img[0+j].setAttribute("src","../static/images/cross.png")
+        }
+
+      } else if (temp[1].checked) {
+        ans = temp[1].getAttribute("value");
+        if (ans==temp[4].getAttribute("value"))
+        {
+            
+            img[1+j].setAttribute("src","../static/images/tick.png")
+        }
+        else
+        {
+          img[1+j].setAttribute("src","../static/images/cross.png")
+        }
+      } else if (temp[2].checked) {
+        ans = temp[2].getAttribute("value");
+        if (ans==temp[4].getAttribute("value"))
+        {
+            
+            img[2+j].setAttribute("src","../static/images/tick.png")
+        }
+        else
+        {
+          img[2+j].setAttribute("src","../static/images/cross.png")
+        }
+      } else if (temp[3].checked) {
+        ans = temp[3].getAttribute("value");
+        if (ans==temp[4].getAttribute("value"))
+        {
+            
+            img[3+j].setAttribute("src","../static/images/tick.png")
+        }
+        else
+        {
+          img[3+j].setAttribute("src","../static/images/cross.png")
+        }
+      }
+
+      j=j+4;
+
+    }
+   
+  }
+
+
+ //count number of unanswered questions 
+
+  function countUnanswered(){
+    var i;
+    var count=0;
+    var countUnanswered;
+    for(i=1;i<=10;i++)
+    {
+      var questionset=document.getElementsByName(i);
+      if(questionset[0].checked || questionset[1].checked || questionset[2].checked || questionset[3].checked )
+      {
+        count++;
+      }
+    }
+
+    countUnanswered=10-count;
+    return countUnanswered;
+
+    
+  }
+
+
+// Reveal crt answers
+function revealAnswers()
+{
+  $(".displaycrtans").show();
+}
+
+// ajax non reload database submit
+
+$('form').on('submit',function(event)
+{
+  $.ajax(
+      {
+        data : {
+          score:$("#tempscore").val(),
+          time:$("#temptime").val()
+        },
+        type:'POST',
+        url:'/savedata'
+
+
+      }
+    )
+    .done(function(data)
+    {
+      $('#backbutton').text(data.msg)
+
+    });
+    event.preventDefault();
+
+})
+   
+   
+
+    
+    
+
+  
+
+
+
+
+</script>
+
+  
+  
+
+
+
+
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+{% endblock %}

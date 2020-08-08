@@ -1,0 +1,135 @@
+{% extends 'layout.html'%}
+{% block head%}
+<title>TESTING</title>
+
+
+{% endblock %}
+
+{% block body%}
+
+
+<div class="columns">
+    <div class="column is-offset-10">
+        <form id="form1" autocomplete="off" method="POST">
+            <label for="users">Enter keywords</label>
+            <input name="username" id="users">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+</div>
+
+<!-- FORM -->
+<form id="form2" method="post">
+    <input type="text" name="username" id="username">
+    <input type="text" name="email" id="email">
+    <input type="text" name="password" id="password">
+    <input type="submit" value="Register">
+</form>
+
+<br><br>
+
+<!-- TABLE -->
+<table id="usertable" class="table is-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+<script>
+    var userlist = {{ userlist| tojson}};
+
+    $(function () {
+
+        $("#users").autocomplete({
+
+            source: userlist,
+
+        });
+    });
+
+
+    $('#form1').on('submit', function (event) {
+
+        $.ajax(
+            {
+                data: {
+                    username: $("#users").val()
+                },
+                type: 'POST',
+                url: '/testing'
+            })
+
+            .done(function (data) {
+
+                var markup = "<tr><td>" + data.username + "</td> <td>" + data.email + "</td></tr>"
+                $("table tbody").append(markup);
+
+            });
+        event.preventDefault();
+    }
+    )
+
+    // when form is submitted
+    $('#form2').on('submit', function (event) {
+        // call ajax method 
+        $.ajax(
+            {  
+                // tell method what data to pass from form
+                data: {
+                    username: $("#username").val(),
+                    email: $("#email").val(),
+                    password: $("#password").val()
+
+
+                },
+                //specify url and method 
+                type: 'POST',
+                url: '/adduser'
+            })
+            
+            // done method executes when ajax method is completed and returns data from backend
+            .done(function (data) {
+                 
+                //create a string which represents a table row with data from SQL
+                var markup = "<tr><td>" + data.username + "</td> <td>" + data.email + "</td></tr>"
+                // append above row to table body in html as a child
+                $("table tbody").append(markup);
+
+            });
+
+            // this method is for preventing form submission and page reload
+            event.preventDefault();
+    }
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+{% endblock %}

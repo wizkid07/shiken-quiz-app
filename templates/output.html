@@ -1,0 +1,110 @@
+{% extends 'layout.html'%}
+{% block head %}
+<title>C output</title>
+
+{% endblock %}
+{% block body%}
+ <!-- NAVBAR -->
+
+ <nav class="navbar " role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <img src="../static/images/shiken logo.png" width="128" height="28" />
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-end ">
+      <a href="{{url_for('home')}}" class="navbar-item">Home</a>
+      
+      <a href="{{url_for('leaderboard')}}" class="navbar-item">Leader Board</a>
+      <a href="{{url_for('progress')}}" class="navbar-item">Progress</a>
+      <div class="navbar-item">
+        <a href="{{ url_for('logout')}}"
+          ><button class="button is-success ">Logout</button></a
+        >
+      </div>
+    </div>
+  </div>
+</nav>
+  <!-- #################################################################################### -->
+
+  <!-- TOPICS -->
+
+  <br>
+
+  <h1 class="title is-size-2 has-text-centered">Pick a Category!</h1>
+ <div class="columns is-centered">
+   <div class="column is-half">
+    <div class="container">
+      <article class="media">
+          <figure class="media-left">
+            <strong class="title is-size-3">1. </strong>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong class="title is-size-3">Strings</strong>
+                <br>
+                Strings are defined as an array of characters. The difference between a character array and a string is the string is terminated with a special character '\0'. Declaring a string is as simple as declaring a one dimensional array
+              </p>
+  
+              <a href="{{url_for('quiz',topic='string')}}" class="button is-success">Take quiz</a>
+            </div>
+         
+        </article>
+        <article class="media">
+          <figure class="media-left">
+            <strong class="title is-size-3">2. </strong>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong class="title is-size-3">Arrays</strong>
+                <br>
+                An array is collection of items stored at contiguous memory locations. The idea is to store multiple items of same type together.
+              </p>
+  
+              <a href="{{url_for('quiz',topic='array')}}" class="button is-success">Take quiz</a>
+            </div>
+         
+        </article>
+        <article class="media">
+          <figure class="media-left">
+            <strong class="title is-size-3">3. </strong>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong class="title is-size-3">Pointers</strong>
+                <br>
+                A pointer is a variable whose value is the address of another variable, i.e., direct address of the memory location. Like any variable or constant, you must declare a pointer before using it to store any variable address.
+              </p>
+  
+              <a href="{{url_for('quiz',topic='pointer')}}" class="button is-success">Take quiz</a>
+            </div>
+         
+        </article>
+        <article class="media">
+          <figure class="media-left">
+            <strong class="title is-size-3">4. </strong>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong class="title is-size-3">Random </strong>
+                <br>
+                 Random problems from various C topics combined together
+              </p>
+  
+              <a href="{{url_for('quiz',topic='random')}}" class="button is-success">Take quiz</a>
+            </div>
+         
+        </article>
+        
+  </div>
+   </div>
+ </div>
+
+<br>
+{% endblock%}

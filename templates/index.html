@@ -1,0 +1,199 @@
+    {% extends 'layout.html'%}
+    {% block head %}
+    <title>SHIKEN LOGIN</title>
+    <style>
+    #signup
+    {
+
+        display: none;      
+    }
+    
+    </style>
+   
+    {% endblock %}
+  
+    
+
+
+  {% block body %}
+  <!-- NAV BAR -->
+  <nav class="navbar" role="navigation" aria-label="main navigation" >
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://bulma.io">
+        <img src="../static/images/shiken logo.png" width="128" height="28">
+      </a>
+  
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  
+    <div id="navbarBasicExample" class="navbar-menu">
+      
+  
+      <div class="navbar-end ">
+        <div class="navbar-item">
+          <div class="buttons">
+            
+            <button class="button is-success" id="loginButton" onclick="showlogin()">
+              <strong >Log in</strong>
+            </button>
+            <button class="button " id="signupButton" onclick="showSignup()">
+              <strong>Sign up</strong>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  
+
+  
+  
+    <section class="hero is-success is-fullheight"  >
+        <div class="hero-body">
+          <div class="container">
+
+            
+            
+            <div class="columns is-centered">
+              
+              <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+
+                {% include 'includes/_messages.html' %}
+
+                <!-- LOGIN FORM -->
+
+                <form method="POST" action="{{url_for('home')}}" class="box" id="login">
+                  <div class="field">
+                    <label for="" class="label">Username</label>
+                    <div class="control has-icons-left">
+                      <input type="text" name="username" placeholder="e.g. wizkid" class="input" required>
+                      <span class="icon is-small is-left">
+                        <i class="fa fa-envelope"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="" class="label">Password</label>
+                    <div class="control has-icons-left">
+                      <input type="password" name="password" placeholder="*******" class="input" required>
+                      <span class="icon is-small is-left">
+                        <i class="fa fa-lock"></i>
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div class="field">
+                    <button class="button is-success">
+                      Login
+                    </button>
+                  </div>
+                  <h1></h1>
+                </form>
+                <!-- SIGN UP -->
+
+
+                <form method="POST" onsubmit="return showmessage();"  class="box " id="signup">
+                  
+                  <div class="field">
+                    <label for="" class="label">Username</label>
+                    <div class="control has-icons-left">
+                      <input  type="text" name="username" placeholder="e.g. wizkid" class="input" required>
+                      <span class="icon is-small is-left">
+                        <i class="fa fa-envelope"></i>
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div class="field">
+                    <label for="" class="label">Email</label>
+                    <div class="control has-icons-left">
+                      <input type="email" name="email"placeholder="e.g. bobsmith@gmail.com" class="input" required>
+                      <span class="icon is-small is-left">
+                        <i class="fa fa-envelope"></i>
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div class="field">
+                    <label for="" class="label">Password</label>
+                    <div class="control has-icons-left">
+                      <input type="password"  name="password" id="password" placeholder="*******" class="input" required>
+                      <span class="icon is-small is-left">
+                        <i class="fa fa-lock"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="" class="label"> Confirm Password</label>
+                    <div class="control has-icons-left">
+                      <input type="password" name="confirmpassword" id="confirmpassword" placeholder="*******" class="input" required>
+                      <span class="icon is-small is-left">
+                        <i class="fa fa-lock"></i>
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div class="field">
+                    <input type="submit" class="button is-success" >
+                      
+                    </input>
+                  </div>
+                </form>
+
+
+              </div>
+            </div>
+          </div>
+        </div> 
+      </section>
+
+      
+    <!-- JAVASCRIPT -->
+    <script>
+      
+
+  $("#signupButton").click(function()
+  {
+    $("#login").hide();
+    $("#signup").fadeIn();
+    $("#signupButton").addClass("is-success");
+    $("#loginButton").removeClass("is-success");
+  });
+
+$("#loginButton").click(function()
+{
+  $("#login").fadeIn();
+  $("#signup").hide();
+  $("#signupButton").removeClass("is-success");
+  $("#loginButton").addClass("is-success");
+});
+
+$("#message").delay(5000).fadeOut(800);
+
+
+function showmessage()
+{
+  var password=document.getElementById("password").value;
+  var confirmpassword=document.getElementById("confirmpassword").value;
+  
+  if(password!=confirmpassword)
+  {
+    alert("Passwords do not match");
+    return false;
+  }
+  
+}
+
+
+
+
+
+         
+    </script>  
+
+{% endblock %}   

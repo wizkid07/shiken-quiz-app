@@ -1,0 +1,269 @@
+{% extends 'layout.html'%}
+{% block head %}
+<title>Progress</title>
+{% endblock %}
+{% block body %}
+<!-- NAVBAR -->
+<nav class="navbar " role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <img src="../static/images/shiken logo.png" width="128" height="28" />
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-end ">
+      <a href="{{url_for('home')}}" class="navbar-item">Home</a>
+      
+      <a href="{{url_for('leaderboard')}}" class="navbar-item">Leader Board</a>
+      <a href="{{url_for('progress')}}" class="navbar-item">Progress</a>
+      <div class="navbar-item">
+        <a href="{{ url_for('logout')}}"
+          ><button class="button is-success ">Logout</button></a
+        >
+      </div>
+    </div>
+  </div>
+</nav>
+  <br>
+  <br>
+
+
+  {% if flaglist[0]==0 and flaglist[1]==0 and flaglist[2]==0 and flaglist[3]==0 and flaglist[4]==0 and flaglist[5]==0 and flaglist[6]==0 and flaglist[7]==0    %}
+  <h1 class="title has-text-centered"> No quizzes were taken!</h1>
+  {% endif %}
+
+
+  
+  
+
+  <!-- ########################################################################### -->
+ <div class="container">
+   <div class="columns is-centered">
+     <div class="column is-half">
+
+      {% if flaglist[0]==1 %}
+       <div class="box">
+         <h1 class="title is-size-3 has-text-centered">Strings</h1>
+         <br>
+         <h1>You have taken {{countlist[0]}} quizzes</h1>
+         <br>
+         <h1>Your accuracy is {{accuracylist[0]}}% </h1>
+         <br>
+         <progress class="progress is-success" value={{accuracylist[0]}} max="100">60%</progress>
+
+        <div class="columns">
+          <div class="column is-offset-4">
+            <a href="{{url_for('gamehistory',topic='string')}}"><button class="button is-success" style="margin-left: 40px;">View history</button></a>
+          </div>
+        </div>
+         
+
+
+       </div>
+
+       {% endif %}
+     </div>
+
+     
+   </div>
+   <div class="columns is-centered">
+    <div class="column is-half">
+      {% if flaglist[1]==1 %}
+      <div class="box">
+        <h1 class="title is-size-3 has-text-centered">Arrays</h1>
+        <br>
+        <h1>You have taken {{countlist[1]}} quizzes</h1>
+        <br>
+        <h1>Your accuracy is {{accuracylist[1]}}%  </h1>
+        <br>
+        <progress class="progress is-success" value={{accuracylist[1]}} max="100">60%</progress>
+        
+        <div class="columns">
+          <div class="column is-offset-4">
+           <a href="{{url_for('gamehistory',topic='array')}}"><button class="button is-success" style="margin-left: 40px;">View history</button></a>  
+          </div>
+        </div>
+
+
+      </div>
+      {% endif %}
+    </div>
+
+    
+  </div>
+  <div class="columns is-centered">
+    <div class="column is-half">
+      {% if flaglist[2]==1 %}
+      <div class="box">
+        <h1 class="title is-size-3 has-text-centered">Pointers</h1>
+        <br>
+        <h1>You have taken {{countlist[2]}} quizzes</h1>
+        <br>
+        <h1>Your accuracy is {{accuracylist[2]}}% </h1>
+        <br>
+        
+        <progress class="progress is-success" value={{accuracylist[2]}} max="100">60%</progress>
+        
+        <div class="columns">
+          <div class="column is-offset-4">
+            <a href="{{url_for('gamehistory',topic='pointer')}}"><button class="button is-success" style="margin-left: 40px;">View history</button></a>
+          </div>
+        </div>
+
+
+      </div>
+      {% endif %}
+    </div>
+
+    
+  </div>
+
+
+  <div class="columns is-centered">
+    <div class="column is-half">
+      {% if flaglist[3]==1 %}
+      <div class="box">
+        <h1 class="title is-size-3 has-text-centered">Database</h1>
+        <br>
+        <h1>You have taken {{countlist[3]}} quizzes</h1>
+        <br>
+        <h1>Your accuracy is {{accuracylist[3]}}% </h1>
+        <br>
+        
+        <progress class="progress is-success" value={{accuracylist[3]}} max="100">60%</progress>
+        
+        <div class="columns">
+          <div class="column is-offset-4">
+            <a href="{{url_for('gamehistory',topic='database')}}"><button class="button is-success" style="margin-left: 40px;">View history</button></a>
+          </div>
+        </div>
+
+
+      </div>
+      {% endif %}
+    </div>
+
+  </div>
+
+    <div class="columns is-centered">
+      <div class="column is-half">
+        {% if flaglist[4]==1 %}
+        <div class="box">
+          <h1 class="title is-size-3 has-text-centered">SQL</h1>
+          <br>
+          <h1>You have taken {{countlist[4]}} quizzes</h1>
+          <br>
+          <h1>Your accuracy is {{accuracylist[4]}}% </h1>
+          <br>
+          
+          <progress class="progress is-success" value={{accuracylist[4]}} max="100">60%</progress>
+          
+          <div class="columns">
+            <div class="column is-offset-4">
+              <a href="{{url_for('gamehistory',topic='SQL')}}"><button class="button is-success" style="margin-left: 40px;">View history</button></a>
+            </div>
+          </div>
+  
+  
+        </div>
+        {% endif %}
+      </div>
+
+    </div>
+
+
+      <div class="columns is-centered">
+        <div class="column is-half">
+          {% if flaglist[5]==1 %}
+          <div class="box">
+            <h1 class="title is-size-3 has-text-centered">Problems on Ages</h1>
+            <br>
+            <h1>You have taken {{countlist[5]}} quizzes</h1>
+            <br>
+            <h1>Your accuracy is {{accuracylist[5]}}% </h1>
+            <br>
+            
+            <progress class="progress is-success" value={{accuracylist[5]}} max="100">60%</progress>
+            
+            <div class="columns">
+              <div class="column is-offset-4">
+                <a href="{{url_for('gamehistory',topic='ages')}}"><button class="button is-success" style="margin-left: 40px;">View history</button></a>
+              </div>
+            </div>
+    
+    
+          </div>
+          {% endif %}
+        </div>
+
+    
+  </div>
+
+
+
+  <div class="columns is-centered">
+    <div class="column is-half">
+      {% if flaglist[6]==1 %}
+      <div class="box">
+        <h1 class="title is-size-3 has-text-centered">Problems on Calender</h1>
+        <br>
+        <h1>You have taken {{countlist[6]}} quizzes</h1>
+        <br>
+        <h1>Your accuracy is {{accuracylist[6]}}% </h1>
+        <br>
+        
+        <progress class="progress is-success" value={{accuracylist[6]}} max="100">60%</progress>
+        
+        <div class="columns">
+          <div class="column is-offset-4">
+            <a href="{{url_for('gamehistory',topic='calendar')}}"><button class="button is-success" style="margin-left: 40px;">View history</button></a>
+          </div>
+        </div>
+
+
+      </div>
+      {% endif %}
+    </div>
+
+
+</div>
+
+
+
+<div class="columns is-centered">
+  <div class="column is-half">
+    {% if flaglist[7]==1 %}
+    <div class="box">
+      <h1 class="title is-size-3 has-text-centered">Odd man Out</h1>
+      <br>
+      <h1>You have taken {{countlist[7]}} quizzes</h1>
+      <br>
+      <h1>Your accuracy is {{accuracylist[7]}}% </h1>
+      <br>
+      
+      <progress class="progress is-success" value={{accuracylist[7]}} max="100">60%</progress>
+      
+      <div class="columns">
+        <div class="column is-offset-4">
+          <a href="{{url_for('gamehistory',topic='oddman')}}"><button class="button is-success" style="margin-left: 40px;">View history</button></a>
+        </div>
+      </div>
+
+
+    </div>
+    {% endif %}
+  </div>
+
+
+</div>
+
+
+
+
+ </div>
+
+
+  
+  
+{% endblock %}

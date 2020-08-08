@@ -1,0 +1,338 @@
+{% extends 'layout.html'%} {% block head %}
+<title>Home</title>
+
+
+
+{% endblock%} {% block body %}
+
+<!-- NAVBAR -->
+
+<nav class="navbar " role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <img src="../static/images/shiken logo.png" width="128" height="28" />
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-end ">
+      <a href="{{url_for('home')}}" class="navbar-item">Home</a>
+      
+      <a href="{{url_for('leaderboard')}}" class="navbar-item">Leader Board</a>
+      <a href="{{url_for('progress')}}" class="navbar-item">Progress</a>
+      <div class="navbar-item">
+        <a href="{{ url_for('logout')}}"
+          ><button class="button is-success ">Logout</button></a
+        >
+      </div>
+    </div>
+  </div>
+</nav>
+<br>
+<br>
+<br>
+
+<!-- String Table -->
+
+<section class = "section">
+    <div class = "container">
+
+        <div class="columns" style="margin-left: 80px;">
+           
+            <div class="column">
+                <h1 class="title is-size-3 " style="margin-left: 100px;">Strings</h1>
+                <br>
+                
+                <table class = "table is-striped ">
+                   <thead>
+                      <tr>
+                         <th>Position</th>
+                         <th>Username</th>
+                         <th>Score</th>
+                         <th>Time</th>
+                         
+                         
+                      </tr>
+                   </thead>
+                  
+                   <tbody>
+                       {% for str in string %}
+                      <tr>
+                         <td>{{loop.index}}</td>
+                         <td>{{str.username}}</td>
+                         <td>{{str.score}}</td>
+                         
+                         {% set minute = str.time // 60 %}
+                         {% set second = str.time - minute*60 %}
+                         <td>{{minute}}:{{second}}</td>
+         
+                      </tr>
+                      {% endfor %}
+                      
+                   </tbody>
+                </table>
+
+            </div>
+            <div class="column">
+
+              <h1 class="title is-size-3 " style="margin-left: 100px;">Arrays</h1>
+                <br>
+                
+                <table class = "table is-striped ">
+                   <thead>
+                      <tr>
+                         <th>Position</th>
+                         <th>Username</th>
+                         <th>Score</th>
+                         <th>Time</th>
+                         
+                         
+                      </tr>
+                   </thead>
+                  
+                   <tbody>
+                       {% for str in array %}
+                      <tr>
+                         <td>{{loop.index}}</td>
+                         <td>{{str.username}}</td>
+                         <td>{{str.score}}</td>
+                         
+                         {% set minute = str.time // 60 %}
+                         {% set second = str.time - minute*60 %}
+                         <td>{{minute}}:{{second}}</td>
+         
+                      </tr>
+                      {% endfor %}
+                      
+                   </tbody>
+                </table>
+
+
+            </div>
+            <div class="column">
+
+               <h1 class="title is-size-3 " style="margin-left: 100px;">Pointers</h1>
+               <br>
+               
+               <table class = "table is-striped ">
+                  <thead>
+                     <tr>
+                        <th>Position</th>
+                        <th>Username</th>
+                        <th>Score</th>
+                        <th>Time</th>
+                        
+                        
+                     </tr>
+                  </thead>
+                 
+                  <tbody>
+                      {% for str in pointer %}
+                     <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{str.username}}</td>
+                        <td>{{str.score}}</td>
+                        
+                        {% set minute = str.time // 60 %}
+                        {% set second = str.time - minute*60 %}
+                        <td>{{minute}}:{{second}}</td>
+        
+                     </tr>
+                     {% endfor %}
+                     
+                  </tbody>
+               </table>
+
+            </div>
+            
+        </div>
+
+
+        <div class="columns">
+           <div class="column" style="margin-left: 80px;">
+            <h1 class="title is-size-3 " style="margin-left: 100px;">Database</h1>
+            <br>
+            
+            <table class = "table is-striped ">
+               <thead>
+                  <tr>
+                     <th>Position</th>
+                     <th>Username</th>
+                     <th>Score</th>
+                     <th>Time</th>
+                     
+                     
+                  </tr>
+               </thead>
+              
+               <tbody>
+                   {% for str in database %}
+                  <tr>
+                     <td>{{loop.index}}</td>
+                     <td>{{str.username}}</td>
+                     <td>{{str.score}}</td>
+                     
+                     {% set minute = str.time // 60 %}
+                     {% set second = str.time - minute*60 %}
+                     <td>{{minute}}:{{second}}</td>
+     
+                  </tr>
+                  {% endfor %}
+                  
+               </tbody>
+            </table>
+           </div>
+
+
+           <div class="column" style="margin-left: 80px;">
+            <h1 class="title is-size-3 " style="margin-left: 100px;">SQL</h1>
+            <br>
+            
+            <table class = "table is-striped ">
+               <thead>
+                  <tr>
+                     <th>Position</th>
+                     <th>Username</th>
+                     <th>Score</th>
+                     <th>Time</th>
+                     
+                     
+                  </tr>
+               </thead>
+              
+               <tbody>
+                   {% for str in SQL %}
+                  <tr>
+                     <td>{{loop.index}}</td>
+                     <td>{{str.username}}</td>
+                     <td>{{str.score}}</td>
+                     
+                     {% set minute = str.time // 60 %}
+                     {% set second = str.time - minute*60 %}
+                     <td>{{minute}}:{{second}}</td>
+     
+                  </tr>
+                  {% endfor %}
+                  
+               </tbody>
+            </table>
+           </div>
+
+
+           <div class="column" style="margin-left: 80px;">
+            <h1 class="title is-size-3 " style="margin-left: 100px;">AGES</h1>
+            <br>
+            
+            <table class = "table is-striped ">
+               <thead>
+                  <tr>
+                     <th>Position</th>
+                     <th>Username</th>
+                     <th>Score</th>
+                     <th>Time</th>
+                     
+                     
+                  </tr>
+               </thead>
+              
+               <tbody>
+                   {% for str in ages %}
+                  <tr>
+                     <td>{{loop.index}}</td>
+                     <td>{{str.username}}</td>
+                     <td>{{str.score}}</td>
+                     
+                     {% set minute = str.time // 60 %}
+                     {% set second = str.time - minute*60 %}
+                     <td>{{minute}}:{{second}}</td>
+     
+                  </tr>
+                  {% endfor %}
+                  
+               </tbody>
+            </table>
+           </div>
+
+
+      
+
+
+        </div>
+
+        <div class="columns">
+         <div class="column" style="margin-left: 80px;">
+            <h1 class="title is-size-3 " style="margin-left: 100px;">Calender</h1>
+            <br>
+            
+            <table class = "table is-striped ">
+               <thead>
+                  <tr>
+                     <th>Position</th>
+                     <th>Username</th>
+                     <th>Score</th>
+                     <th>Time</th>
+                     
+                     
+                  </tr>
+               </thead>
+              
+               <tbody>
+                   {% for str in calender %}
+                  <tr>
+                     <td>{{loop.index}}</td>
+                     <td>{{str.username}}</td>
+                     <td>{{str.score}}</td>
+                     
+                     {% set minute = str.time // 60 %}
+                     {% set second = str.time - minute*60 %}
+                     <td>{{minute}}:{{second}}</td>
+     
+                  </tr>
+                  {% endfor %}
+                  
+               </tbody>
+            </table>
+           </div>
+
+           <div class="column" style="margin-left: 80px;">
+            <h1 class="title is-size-3 " style="margin-left: 70px;">Odd Man out</h1>
+            <br>
+            
+            <table class = "table is-striped ">
+               <thead>
+                  <tr>
+                     <th>Position</th>
+                     <th>Username</th>
+                     <th>Score</th>
+                     <th>Time</th>
+                     
+                     
+                  </tr>
+               </thead>
+              
+               <tbody>
+                   {% for str in oddman %}
+                  <tr>
+                     <td>{{loop.index}}</td>
+                     <td>{{str.username}}</td>
+                     <td>{{str.score}}</td>
+                     
+                     {% set minute = str.time // 60 %}
+                     {% set second = str.time - minute*60 %}
+                     <td>{{minute}}:{{second}}</td>
+     
+                  </tr>
+                  {% endfor %}
+                  
+               </tbody>
+            </table>
+           </div>
+
+           <div class="column"></div>
+        </div>
+      
+       
+    </div>
+ </section>
+
+ {% endblock %}

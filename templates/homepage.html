@@ -1,0 +1,98 @@
+{% extends 'layout.html'%} {% block head %}
+<title>Home</title>
+
+<style>
+  .image:hover {
+    transform: scale(1.05);
+  }
+</style>
+
+{% endblock%} {% block body %}
+
+<!-- NAVBAR -->
+
+<nav class="navbar " role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <img src="../static/images/shiken logo.png" width="128" height="28" />
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-end ">
+      <a href="{{url_for('home')}}" class="navbar-item">Home</a>
+      
+      <a href="{{url_for('leaderboard')}}" class="navbar-item">Leader Board</a>
+      <a href="{{url_for('progress')}}" class="navbar-item">Progress</a>
+      <a href="{{url_for('practice',page_num=1)}}"  class="navbar-item">Practice</a>
+      <a href="{{url_for('bookmarks')}}" class="navbar-item">Bookmarks</a>
+      <div class="navbar-item">
+        <a href="{{ url_for('logout')}}"
+          ><button class="button is-success ">Logout</button></a
+        >
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ################################################################################ -->
+
+<!-- HERO  -->
+
+<section class="hero ">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title has-text-centered">
+        Welcome {{username}}!
+      </h1>
+    </div>
+  </div>
+</section>
+<br />
+
+<!-- ################################################################################ -->
+
+<!-- TOPICS -->
+
+<h1 class=" is-size-1 has-text-centered"><strong>Choose your topic</strong></h1>
+<br />
+
+<div class="container">
+  <div class="columns">
+    <div class="column"></div>
+    <div class="column">
+      <a href="{{url_for('output')}}">
+        <figure class="image " style="width: 350px; height: 350px;">
+          <img src="../static/images/c logo.png" />
+        </figure>
+      </a>
+    </div>
+    <div class="column">
+      <a href="{{url_for('database')}}">
+        <figure class="image" style="width: 350px; height: 350px;">
+          <img src="../static/images/database.png" />
+        </figure>
+      </a>
+    </div>
+    <div class="column">
+      <a href="{{url_for('aptitude')}}">
+        <figure class="image" style="width: 350px; height: 350px;">
+          <img src="../static/images/aptitude.png" />
+        </figure>
+      </a>
+    </div>
+    <div class="column"></div>
+  </div>
+</div>
+
+<!-- ################################################################################ -->
+
+<!-- FOOTER -->
+
+<footer class="footer" style="background-color: white;">
+  <div class="content has-text-centered">
+    <p><strong>Shiken</strong> by Vimal Raj V</p>
+  </div>
+</footer>
+
+{% endblock %}
